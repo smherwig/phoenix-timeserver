@@ -309,7 +309,6 @@ tnt_server_runloop(struct tnt_server *server)
     uint8_t *sig = NULL;
     size_t sigsize = 0;
 
-
     sig_maxsize = EVP_PKEY_size(server->srv_pkey);
     sig = rhoL_zalloc(sig_maxsize);
 
@@ -323,8 +322,7 @@ tnt_server_runloop(struct tnt_server *server)
                 (struct sockaddr *)&addr, &alen);
 
         rhoL_inet_ntop(AF_INET, &(addr.sin_addr), addrstr, sizeof(addrstr));
-        rho_log_info(tnt_log, "request from %s:%d", addrstr, addr.sin_port);
-
+        rho_log_debug(tnt_log, "request from %s:%d", addrstr, addr.sin_port);
         /* read request 
          * TODO: add a header for the request
          */
@@ -339,7 +337,6 @@ tnt_server_runloop(struct tnt_server *server)
         rho_buf_writeu64be(buf, nonce);
         rho_buf_writeu64be(buf, tv.tv_sec);
         rho_buf_writeu32be(buf, tv.tv_usec);
-
 
 #if 0
         rho_hexdump(rho_buf_raw(buf, TNT_HEADER_SIZE, SEEK_SET),
@@ -367,6 +364,8 @@ tnt_server_runloop(struct tnt_server *server)
         }
 
         rho_buf_rewind(buf);
+        rho_log_debug(tnt_log, "sending request (%zu bytes)",
+                rho_buf_length(buf));
         rho_sock_sendto_buf(sock, buf, rho_buf_length(buf), 
             (struct sockaddr *)&addr, alen);
     }

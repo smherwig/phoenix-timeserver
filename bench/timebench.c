@@ -42,8 +42,9 @@ main(int argc, char *argv[])
 
     for (i = 0; i < DEFAULT_RUNS; i++) {
         (void)gettimeofday(&start, NULL);
-        for (j = 0; j < n; j++)
+        for (j = 0; j < n; j++) {
             (void)gettimeofday(&tmp, NULL);
+        }
         (void)gettimeofday(&end, NULL);
         rho_timeval_subtract(&end, &start, &elapsed);
         results[i] = elapsed;
@@ -62,7 +63,8 @@ main(int argc, char *argv[])
     }
 
     sum /= 4.0;
-    printf("trimmed mean: %lf secs\n", sum);
+    printf("trimmed mean: %lf s for %d calls (%.9f s/rpc)\n",
+            sum, n, sum / (1.0 * n));
 
     return (0);
 }
