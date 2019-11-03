@@ -89,6 +89,7 @@ cd ~/src/makemanifest
 ./make_sgx.py -g ~/src/phoenix -k enclave-key.pem -p ~/src/timeserver/bench/timebench.conf -t $PWD -v -o timebench
 cd timebench
 cp manifest.sgx timebench.manifest.sgx
+```
 
 
 Run the benchmark:
