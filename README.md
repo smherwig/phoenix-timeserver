@@ -49,16 +49,16 @@ make
 
 This builds the tool `timebench`.  `timebench` measures the the elapsed time
 for an invocation of `gettimeofday`.  Specifically, `timebench` computes the
-elapsed time for N invocations of `gettimeofday`, performs this test 10 times,
+elapsed time for *N* invocations of `gettimeofday`, performs this test 10 times,
 and then takes the 30% trimmed mean (mean of the middle four trials).
 
 
-The timebench measures
+The timebench is used to measure both configurations that retrieve time from
+the host, as well as configurations that retrieve time from a time server.
 
 
-
-Host Time
----------
+Host Time Measurements
+----------------------
 
 ### non-SGX
 
@@ -112,8 +112,8 @@ THREADS 1 exitless
 The rest of the steps are the same as for [SGX](#microbench-hosttime-sgx).
 
 
-Timeserver
-----------
+Timeserver Measurements
+-----------------------
 
 ### <a name="microbench-timeserver-sgx"/>SGX
 
