@@ -9,7 +9,7 @@ Building
 
 The timeserver depends on [librho](https://github.com/smherwig/librho).  The
 instructions here assume that librho is installed under `$HOME`; change the
-`Makefile`'s `INCLUDES` variable if librho is installed to some other
+`Makefile`'s `INCLUDES` variable if librho is installed to a different
 directory.
 
 
@@ -61,6 +61,9 @@ Host Time Measurements
 ----------------------
 
 ### non-SGX
+
+This simply tests the time for vanilla Linux to invoke `gettimeofday` one
+million times.
 
 ```
 cd ~/src/timeserver/bench
@@ -117,6 +120,9 @@ Timeserver Measurements
 
 ### <a name="microbench-timeserver-sgx"/>SGX
 
+The manifest file `~/src/phoenix/timeserver/bench/timebench.conf` should look
+like:
+
 ```
 EXEC file:/home/smherwig/src/timeserver/bench/timebench
 TIMESERVER udp:127.0.0.1:12345 /home/smherwig/src/timeserver/public.pem 1
@@ -124,6 +130,8 @@ ENCLAVE_SIZE 128
 THREADS 1
 DEBUG off 
 ```
+
+Next, package `timebench` to run on Graphene:
 
 ```
 cd ~/src/makemanifest
