@@ -154,4 +154,4 @@ to:
 THREADS 1 exitless
 ```
 
-The rest of the steps are the same as for (SGX)[#microbench-timeserver-sgx].
+The rest of the steps are the same as for [SGX](#microbench-timeserver-sgx).
