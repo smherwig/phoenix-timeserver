@@ -40,20 +40,20 @@ configuration packager. Download and setup these two projects.  The
 instructions here assume that the phoenix source is located at `$HOME/src/phoenix`
 and the phoenix-makemanifest project at `$HOME/src/makemanifest`.
 
-Next, build the timeserver benchmarking tool:
+Next, build the timeserver benchmarking tool, `timebench`:
 
 ```
 cd ~/src/timeserver/bench
 make
 ```
 
-This builds the tool `timebench`.  `timebench` measures the the elapsed time
-for an invocation of `gettimeofday`.  Specifically, `timebench` computes the
-elapsed time for *N* invocations of `gettimeofday`, performs this test 10 times,
-and then takes the 30% trimmed mean (mean of the middle four trials).
+`timebench` measures the the elapsed time for an invocation of `gettimeofday`.
+Specifically, `timebench` computes the elapsed time for *N* invocations of
+`gettimeofday`, performs this test 10 times, and then takes the 30% trimmed
+mean (mean of the middle four trials).
 
 
-The timebench is used to measure both configurations that retrieve time from
+`timebench` is used to measure both configurations that retrieve time from
 the host, as well as configurations that retrieve time from a time server.
 
 
