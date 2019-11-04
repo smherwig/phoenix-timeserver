@@ -4,8 +4,8 @@ Overview
 Timeserver for the [Phoenix](https://github.com/smherwig/phoenix) SGX microkernel.
 
 
-Building
-========
+<a name="building"/> Building
+=============================
 
 The timeserver depends on [librho](https://github.com/smherwig/librho).  The
 instructions here assume that librho is installed under `$HOME`; change the
@@ -30,8 +30,8 @@ enter:
 ```
 
 
-Micro-benchmarks
-================
+<a name="micro-benchmarks"/> Micro-benchmarks
+=============================================
 
 The benchmarks require the [phoenix](https://github.com/smherwig/phoenix)
 libOS and the
