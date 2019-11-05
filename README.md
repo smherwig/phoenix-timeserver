@@ -13,7 +13,7 @@ instructions here assume that librho is installed under `$HOME`; change the
 directory.
 
 
-To download and build the timeserver, enter:
+Download and build the timeserver, `tntserver`:
 
 ```
 cd ~/src
@@ -22,11 +22,13 @@ cd timeserver
 make
 ```
 
-To generate a key pair (`private.pem`, `public.pem`) for the time server,
-enter:
+Generate a key pair (`timeserver-private.pem`, and `timeserver-public.pem`) for
+the time server:
 
 ```
 ./gen_keypair.sh
+mkdir -p ~/share/phoenix
+cp timeserver-private.pem timeserver-public.pem ~/share/phoenix
 ```
 
 
