@@ -49,7 +49,7 @@ cd ~/src/timeserver/bench
 make
 ```
 
-`timebench` measures the the elapsed time for an invocation of `gettimeofday`.
+`timebench` measures the elapsed time for an invocation of `gettimeofday`.
 Specifically, `timebench` computes the elapsed time for *N* invocations of
 `gettimeofday`, performs this test 10 times, and then takes the 30% trimmed
 mean (mean of the middle four trials).
@@ -78,10 +78,11 @@ The manifest file `~/src/phoenix/timeserver/bench/timebench.conf` should look
 like:
 
 ```
-EXEC file:/home/smherwig/src/timeserver/bench/timebench
-ENCLAVE_SIZE 128 
+DEBUG off
+EXEC file:$HOME/src/timeserver/bench/timebench
+TIMESERVER udp:127.0.0.1:12345 $HOME/share/phoenix/timeserver-public.pem 1
+ENCLAVE_SIZE 128
 THREADS 1
-DEBUG off 
 ```
 
 Change the executable path as needed.
@@ -124,11 +125,11 @@ The manifest file `~/src/phoenix/timeserver/bench/timebench.conf` should look
 like:
 
 ```
-EXEC file:/home/smherwig/src/timeserver/bench/timebench
-TIMESERVER udp:127.0.0.1:12345 /home/smherwig/src/timeserver/public.pem 1
-ENCLAVE_SIZE 128 
+DEBUG off
+EXEC file:$HOME/src/timeserver/bench/timebench
+TIMESERVER udp:127.0.0.1:12345 $HOME/share/phoenix/timeserver-public.pem 1
+ENCLAVE_SIZE 128
 THREADS 1
-DEBUG off 
 ```
 
 Next, package `timebench` to run on Graphene:
@@ -141,7 +142,8 @@ cd ~/src/makemanifest
 In one terminal, run the timeserver:
 
 ```
-./tntserver -k private.pem 12345
+cd ~/src/timeserver
+./tntserver -k ~/share/phoenix/timeserver-private.pem 12345
 ```
 
 In the other terminal, run the timebench under Graphene:
