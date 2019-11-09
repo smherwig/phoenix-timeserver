@@ -62,9 +62,11 @@ the host, as well as configurations that retrieve time from a time server.
 Host Time Measurements
 ----------------------
 
+These benchmarks do not use the timeserver.
+
 ### non-SGX
 
-This simply tests the time for vanilla Linux to invoke `gettimeofday` one
+This simply measures the time for vanilla Linux to invoke `gettimeofday` one
 million times.
 
 ```
@@ -74,25 +76,20 @@ cd ~/src/timeserver/bench
 
 ### <a name="microbench-hosttime-sgx"/> SGX
 
-The manifest file `~/src/phoenix/timeserver/bench/timebench.conf` should look
-like:
+Ensure that `~/src/phoenix/timeserver/bench/timebench.conf` appears as:
 
 ```
 DEBUG off
 EXEC file:$HOME/src/timeserver/bench/timebench
-TIMESERVER udp:127.0.0.1:12345 $HOME/share/phoenix/timeserver-public.pem 1
 ENCLAVE_SIZE 128
 THREADS 1
 ```
 
-Change the executable path as needed.
-
-
-Now, package `timebench` to run on Graphene:
+Package `timebench` to run on Graphene:
 
 ```
 cd ~/src/makemanifest
-./make_sgx.py -g ~/src/phoenix -k enclave-key.pem -p ~/src/timeserver/bench/timebench.conf -t $PWD -v -o timebench
+./make_sgx.py -g ~/src/phoenix -k ~/share/phoenix/enclave-key.pem -p ~/src/timeserver/bench/timebench.conf -t $PWD -v -o timebench
 ```
 
 
@@ -100,7 +97,7 @@ Run the benchmark:
 
 ```
 cd ~/src/makemanifest/timebench
-./timebench.manifest.sgx 100000
+./timebench.manifest.sgx 1000000
 ```
 
 
@@ -119,10 +116,13 @@ The rest of the steps are the same as for [SGX](#microbench-hosttime-sgx).
 Timeserver Measurements
 -----------------------
 
+These benchmarks use the timeserver.  These benchmarks can take a long time to
+run, so consider performing only 10,000 calls rather than one million.
+
 ### <a name="microbench-timeserver-sgx"/>SGX
 
-The manifest file `~/src/phoenix/timeserver/bench/timebench.conf` should look
-like:
+The manifest file `~/src/phoenix/timeserver/bench/timebench.conf` should appear
+as:
 
 ```
 DEBUG off
@@ -132,11 +132,11 @@ ENCLAVE_SIZE 128
 THREADS 1
 ```
 
-Next, package `timebench` to run on Graphene:
+Package `timebench` to run on Graphene:
 
 ```
 cd ~/src/makemanifest
-./make_sgx.py -g ~/src/phoenix -k enclave-key.pem -p ~/src/timeserver/bench/timebench.conf -t $PWD -v -o timebench
+./make_sgx.py -g ~/src/phoenix -k ~/share/phoenix/enclave-key.pem -p ~/src/timeserver/bench/timebench.conf -t $PWD -v -o timebench
 ```
 
 In one terminal, run the timeserver:
@@ -155,7 +155,7 @@ cd ~/src/makemanifest/timebench
 
 ### exitless
 
-For exitless system calls, change the `timebenchf.conf`'s `THREADS` directive
+For exitless system calls, change `timebench.conf`'s `THREADS` directive
 to:
 
 ```
