@@ -150,7 +150,7 @@ In the other terminal, run the timebench under Graphene:
 
 ```
 cd ~/src/makemanifest/timebench
-./timebench.manifest.sgx 100000
+./timebench.manifest.sgx 10000
 ```
 
 ### exitless
